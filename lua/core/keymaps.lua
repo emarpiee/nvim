@@ -6,7 +6,6 @@ vim.g.maplocalleader = ' '
 
 -- Disable the spacebar key's default behavior in Normal and Visual modes
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
-vim.keymap.set({ 'n', 'v' }, 's', '<Nop>', { silent = true })
 
 -- For conciseness
 local opts = { noremap = true, silent = true }
@@ -26,6 +25,8 @@ vim.keymap.set('n', 'x', '"_x', opts)
 -- Vertical scroll and center
 vim.keymap.set('n', '<C-d>', '<C-d>zz', opts)
 vim.keymap.set('n', '<C-u>', '<C-u>zz', opts)
+vim.keymap.set("n", "n", "nzzzv")
+vim.keymap.set("n", "N", "Nzzzv")
 
 -- Find and center
 vim.keymap.set('n', 'n', 'nzzzv', opts)
@@ -83,8 +84,17 @@ vim.api.nvim_set_keymap('n', '<C-a>', 'ggVG', { noremap = true, silent = true })
 -- Clear highlights on search when pressing <Esc> in normal mode
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
+-- Replace word (excluding symbols) under cursor across entire buffer 
+vim.keymap.set("n", "<leader>ra", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], {desc = "Replace all words under cursor"})
+
+-- Exit insert mode without hitting Esc
+vim.keymap.set("i", "jj", "<Esc>")
+
 -- -- -- -- CUSTOM KEYMAPS FOR PLUGINS-- -- -- --
 -- 
 vim.keymap.set('n', '<leader>e', '<Cmd>lua MiniFiles.open()<CR>')
 vim.keymap.set('n', '<leader>,', '<Cmd>lua Snacks.picker()<CR>')
+
+
+
 

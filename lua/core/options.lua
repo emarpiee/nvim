@@ -80,7 +80,7 @@ vim.opt.termguicolors = true
 -- NOTE: The lines below will set PowerShell as default shell profile.
 --
 vim.o.shell = vim.fn.executable "pwsh" and "pwsh" or "powershell"
-vim.o.shellcmdflag = "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;"
+vim.o.shellcmdflag = "-Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;"
 vim.o.shellredir = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
 vim.o.shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
 vim.o.shellquote = ""
