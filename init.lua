@@ -1,96 +1,96 @@
-require('core.keymaps')
-require('core.options')
+require("core.keymaps")
+require("core.options")
 
 -- [[ Install `lazy.nvim` plugin manager ]]
-local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
-  local lazyrepo = 'https://github.com/folke/lazy.nvim.git'
-  local out = vim.fn.system { 'git', 'clone', '--filter=blob:none', '--branch=stable', lazyrepo, lazypath }
-  if vim.v.shell_error ~= 0 then
-    error('Error cloning lazy.nvim:\n' .. out)
-  end
-
+	local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+	local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+	if vim.v.shell_error ~= 0 then
+		error("Error cloning lazy.nvim:\n" .. out)
+	end
 end
 vim.opt.rtp:prepend(lazypath)
 
-require('lazy').setup({
+require("lazy").setup({
 
-  -- NOTE: ## MANAGER
-  --
-  -- Portable package manager
-  require 'plugins.mason',
+	-- NOTE: ## MANAGER
+	--
+	-- Portable package manager
+	require("plugins.mason"),
 
-  -- NOTE: ## CODE QUALITY
-  --
-  require 'plugins.treesitter',
+	-- NOTE: ## CODE QUALITY
+	--
+	require("plugins.treesitter"),
 
-  -- NOTE: ## PRODUCTIVITY & EDITING ENHANCEMENTS
-  --
-  -- Collection of independent Lua modules
-  require 'plugins.mini-nvim',
+	-- NOTE: ## PRODUCTIVITY & EDITING ENHANCEMENTS
+	--
+	-- Collection of independent Lua modules
+	require("plugins.mini-nvim"),
 
-  -- Shows available keybindings in a popup as you type
-  require 'plugins.which-key',
+	-- Shows available keybindings in a popup as you type
+	require("plugins.which-key"),
 
-  -- A collection of small QoL pluins for Neovim
-  require 'plugins.snacks',
+	-- A collection of small QoL pluins for Neovim
+	require("plugins.snacks"),
 
-  -- Multiple curosrs
-  require 'plugins.vim-visual-multi',
+	-- Multiple curosrs
+	require("plugins.vim-visual-multi"),
 
-  -- nvim-cmp, this is required for Mason LSP
-  require 'plugins.autocompletion',
+	-- nvim-cmp, this is required for Mason LSP
+	require("plugins.autocompletion"),
 
-  -- Add/change/delete surrounding delimiter pairs with ease.
-  require 'plugins.surround',
+	-- Add/change/delete surrounding delimiter pairs with ease.
+	require("plugins.surround"),
 
-  -- NOTE: ## NAVIGATION
-  --
-  -- Fuzzy Finder
-  require 'plugins.telescope',
+	-- Code formatter
+	require("plugins.formatter"),
 
-  -- NOTE: ## GIT & VERSION CONTROL
-  --
-  -- Git integration for buffers
-  require 'plugins.gitsigns',
+	-- NOTE: ## NAVIGATION
+	--
+	-- Fuzzy Finder
+	require("plugins.telescope"),
 
-  -- NOTE: ## UI & APPEARANCE
-  --
-  require 'plugins.colortheme',
+	-- NOTE: ## GIT & VERSION CONTROL
+	--
+	-- Git integration for buffers
+	require("plugins.gitsigns"),
 
-  -- Buffer/tab management
-  require 'plugins.bufferline',
+	-- NOTE: ## UI & APPEARANCE
+	--
+	require("plugins.colortheme"),
 
-  -- Status line
-  require 'plugins.lualine',
+	-- Buffer/tab management
+	require("plugins.bufferline"),
 
-  -- Auto close brackets, quotes, etc
-  require 'plugins.autopairs',
+	-- Status line
+	require("plugins.lualine"),
 
-  -- Highlight, list and search todo comments in your projects
-  require 'plugins.todo',
+	-- Auto close brackets, quotes, etc
+	require("plugins.autopairs"),
 
-  -- Color highlighter
-  require 'plugins.colorizer',
+	-- Highlight, list and search todo comments in your projects
+	require("plugins.todo"),
 
-  -- plugin to help easily manage multiple terminal windows
-  require 'plugins.toggleterm',
+	-- Color highlighter
+	require("plugins.colorizer"),
 
-  -- NOTE: ## GAMES
-  --
-  -- smol game to make you better with vim
-  require 'plugins.vimbegood',
+	-- plugin to help easily manage multiple terminal windows
+	require("plugins.toggleterm"),
 
-  -- NOTE: ## OTHER
-  --
-  -- require 'plugins.obsidian',
+	-- NOTE: ## GAMES
+	--
+	-- smol game to make you better with vim
+	require("plugins.vimbegood"),
 
+	-- NOTE: ## OTHER
+	--
+	-- require 'plugins.obsidian',
 })
 
 -- NOTE: ## MODIFICATIONS
 -- Set colorscheme
-vim.cmd.colorscheme 'retrobox'
+vim.cmd.colorscheme("retrobox")
 
 -- Modified colors.
 vim.api.nvim_set_hl(0, "Normal", { bg = "#000000", fg = "#ffffff" })
-
