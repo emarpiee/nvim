@@ -1,70 +1,70 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sample HTML, JS, and CSS</title>
-  
-  <!-- Inline CSS -->
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f0f0f0;
-      margin: 0;
-      padding: 0;
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sample HTML, JS, and CSS</title>
 
-    .container {
-      width: 80%;
-      margin: 50px auto;
-      padding: 20px;
-      background-color: white;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      border-radius: 10px;
-    }
+    <!-- Inline CSS -->
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+        margin: 0;
+        padding: 0;
+      }
 
-    h1 {
-      text-align: center;
-      color: #333;
-    }
+      .container {
+        width: 80%;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: white;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+      }
 
-    button {
-      display: block;
-      margin: 20px auto;
-      padding: 10px 20px;
-      background-color: #007bff;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
+      h1 {
+        text-align: center;
+        color: #333;
+      }
 
-    button:hover {
-      background-color: #0056b3;
-    }
+      button {
+        display: block;
+        margin: 20px auto;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
 
-    .message {
-      text-align: center;
-      font-size: 1.2em;
-      color: #555;
-    }
-  </style>
-</head>
-<body>
+      button:hover {
+        background-color: #0056b3;
+      }
 
-  <div class="container">
-    <h1>Interactive Button</h1>
-    <button id="alertButton">Click Me!</button>
-    <p class="message" id="message"></p>
-  </div>
+      .message {
+        text-align: center;
+        font-size: 1.2em;
+        color: #555;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Interactive Button</h1>
+      <button id="alertButton">Click Me!</button>
+      <p class="message" id="message"></p>
+    </div>
 
-  <!-- Inline JavaScript -->
-  <script>
-    document.getElementById('alertButton').addEventListener('click', function() {
-      document.getElementById('message').textContent = 'Hello! You clicked the button.';
-    });
-  </script>
-
-</body>
+    <!-- Inline JavaScript -->
+    <script>
+      document
+        .getElementById("alertButton")
+        .addEventListener("click", function () {
+          document.getElementById("message").textContent =
+            "Hello! You clicked the button.";
+        });
+    </script>
+  </body>
 </html>
-
