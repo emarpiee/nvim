@@ -46,6 +46,12 @@ require("lazy").setup({
 	-- Code formatter
 	require("plugins.formatter"),
 
+	-- Auto pair tags (required treesitter)
+	require("plugins.ts-autotag"),
+
+	-- Auto close brackets, quotes, etc
+	-- require("plugins.autopairs"),
+
 	-- NOTE: ## NAVIGATION
 	--
 	-- Fuzzy Finder
@@ -65,9 +71,6 @@ require("lazy").setup({
 
 	-- Status line
 	require("plugins.lualine"),
-
-	-- Auto close brackets, quotes, etc
-	require("plugins.autopairs"),
 
 	-- Highlight, list and search todo comments in your projects
 	require("plugins.todo"),
