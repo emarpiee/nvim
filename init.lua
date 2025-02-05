@@ -15,56 +15,82 @@ vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
 
-  require 'plugins.colortheme',
-
-  -- buffer line (with tabpage integration)
-  require 'plugins.bufferline',
-
-  -- status line
-  require 'plugins.lualine',
-
-  -- a fzf alternative
-  require 'plugins.telescope',
-
-  -- portable package manager
+  -- NOTE: ## MANAGER
+  --
+  -- Portable package manager
   require 'plugins.mason',
 
-  -- nvim-cmp, this is required for Mason LSP
-  require 'plugins.autocompletion',
+  -- NOTE: ## CODE QUALITY
+  --
+  require 'plugins.treesitter',
 
-  require 'plugins.gitsigns',
+  -- NOTE: ## PRODUCTIVITY & EDITING ENHANCEMENTS
+  --
+  -- Collection of independent Lua modules
+  require 'plugins.mini-nvim',
 
-  -- helps you remember your Neovim keymaps, by showing available keybindings in a popup as you type
+  -- Shows available keybindings in a popup as you type
   require 'plugins.which-key',
-
-  require 'plugins.autopairs',
-
-  -- highlight, list and search todo comments in your projects
-  require 'plugins.todo',
-
-  -- high-performance color highlighter
-  require 'plugins.colorizer',
 
   -- A collection of small QoL pluins for Neovim
   require 'plugins.snacks',
 
+  -- Multiple curosrs
+  require 'plugins.vim-visual-multi',
+
+  -- nvim-cmp, this is required for Mason LSP
+  require 'plugins.autocompletion',
+
+  -- Add/change/delete surrounding delimiter pairs with ease.
+  require 'plugins.surround',
+
+  -- NOTE: ## NAVIGATION
+  --
+  -- Fuzzy Finder
+  require 'plugins.telescope',
+
+  -- NOTE: ## GIT & VERSION CONTROL
+  --
+  -- Git integration for buffers
+  require 'plugins.gitsigns',
+
+  -- NOTE: ## UI & APPEARANCE
+  --
+  require 'plugins.colortheme',
+
+  -- Buffer/tab management
+  require 'plugins.bufferline',
+
+  -- Status line
+  require 'plugins.lualine',
+
+  -- Auto close brackets, quotes, etc
+  require 'plugins.autopairs',
+
+  -- Highlight, list and search todo comments in your projects
+  require 'plugins.todo',
+
+  -- Color highlighter
+  require 'plugins.colorizer',
+
   -- plugin to help easily manage multiple terminal windows
   require 'plugins.toggleterm',
 
-  -- multiple curosrs
-  require 'plugins.vim-visual-multi',
-
+  -- NOTE: ## GAMES
+  --
   -- smol game to make you better with vim
   require 'plugins.vimbegood',
 
-  -- Library of 40+ independent Lua modules
-  require 'plugins.mini-nvim'
-
+  -- NOTE: ## OTHER
+  --
   -- require 'plugins.obsidian',
-  -- require 'plugins.treesitter',
+
 })
 
-
+-- NOTE: ## MODIFICATIONS
+-- Set colorscheme
 vim.cmd.colorscheme 'retrobox'
+
+-- Modified colors.
 vim.api.nvim_set_hl(0, "Normal", { bg = "#000000", fg = "#ffffff" })
 
