@@ -78,9 +78,6 @@ vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next diagnos
 vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
 
--- Select all text in the file
-vim.api.nvim_set_keymap("n", "<C-a>", "gg0vG$", { noremap = true, silent = true })
-
 -- Clear highlights on search when pressing <Esc> in normal mode
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
@@ -91,6 +88,15 @@ vim.keymap.set(
 	[[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
 	{ desc = "Replace all words under cursor" }
 )
+
+-- Jump to start line of the first line.
+vim.keymap.set("n", "gg", "gg0")
+
+-- JUmp to the end of the last line.
+vim.keymap.set("n", "G", "G$")
+
+-- Select all text in the file
+vim.api.nvim_set_keymap("n", "<C-a>", "gg0vG$", { noremap = true, silent = true })
 
 -- Exit insert mode without hitting Esc
 vim.keymap.set("i", "jj", "<Esc>")
