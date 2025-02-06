@@ -35,7 +35,7 @@ require("lazy").setup({
 	require("plugins.snacks"),
 
 	-- Multiple curosrs
-	require("plugins.vim-visual-multi"),
+	-- require("plugins.vim-visual-multi"),
 
 	-- nvim-cmp, this is required for Mason LSP
 	require("plugins.autocompletion"),
@@ -48,6 +48,8 @@ require("lazy").setup({
 
 	-- Auto pair tags (required treesitter)
 	require("plugins.ts-autotag"),
+
+	require("plugins.multicursor"),
 
 	-- Auto close brackets, quotes, etc
 	-- require("plugins.autopairs"),
@@ -80,6 +82,7 @@ require("lazy").setup({
 
 	-- plugin to help easily manage multiple terminal windows
 	require("plugins.toggleterm"),
+	-- -- -- Open HTML in Browser (cross-platform) -- -- --
 
 	-- NOTE: ## GAMES
 	--
