@@ -95,8 +95,10 @@ require("lazy").setup({
 })
 
 -- NOTE: ## MODIFICATIONS
+
 -- Set colorscheme
 vim.cmd.colorscheme("retrobox")
 
 -- Modified colors.
 vim.api.nvim_set_hl(0, "Normal", { bg = "#000000", fg = "#ffffff" })
+vim.cmd [[highlight Visual guibg=#4f125b guifg=NONE]]
