@@ -66,7 +66,7 @@ require("lazy").setup({
 	require("plugins.gitsigns"),
 
 	-- NOTE: ## UI & APPEARANCE
-  --
+	--
 	-- Buffer/tab management
 	require("plugins.bufferline"),
 
@@ -87,5 +87,4 @@ require("lazy").setup({
 	--
 	-- smol game to make you better with vim
 	require("plugins.vimbegood"),
-
 })
