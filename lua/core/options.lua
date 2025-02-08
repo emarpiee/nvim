@@ -18,7 +18,7 @@ vim.opt.linebreak = true
 vim.opt.showtabline = 2
 
 -- Make `` visible in md files
-vim.opt.conceallevel = 0
+vim.opt.conceallevel = 1
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
@@ -85,3 +85,4 @@ vim.o.shellredir = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
 vim.o.shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
 vim.o.shellquote = ""
 vim.o.shellxquote = ""
+
