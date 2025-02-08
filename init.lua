@@ -1,5 +1,6 @@
 require("core.keymaps")
 require("core.options")
+require("core.appearance")
 
 -- [[ Install `lazy.nvim` plugin manager ]]
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -65,9 +66,7 @@ require("lazy").setup({
 	require("plugins.gitsigns"),
 
 	-- NOTE: ## UI & APPEARANCE
-	--
-	require("plugins.colortheme"),
-
+  --
 	-- Buffer/tab management
 	require("plugins.bufferline"),
 
@@ -89,16 +88,4 @@ require("lazy").setup({
 	-- smol game to make you better with vim
 	require("plugins.vimbegood"),
 
-	-- NOTE: ## OTHER
-	--
-	-- require 'plugins.obsidian',
 })
-
--- NOTE: ## MODIFICATIONS
-
--- Set colorscheme
-vim.cmd.colorscheme("retrobox")
-
--- Modified colors.
-vim.api.nvim_set_hl(0, "Normal", { bg = "#000000", fg = "#ffffff" })
-vim.cmd [[highlight Visual guibg=#4f125b guifg=NONE]]
