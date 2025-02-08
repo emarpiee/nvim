@@ -4,101 +4,117 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
--- Disable spacebar in Normal and Visual modes
-vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
-
--- For conciseness
+local map = vim.keymap.set
 local opts = { noremap = true, silent = true }
 
+-- Disable default mappings
+map({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
+map({ "n", "v" }, "s", "<Nop>", { silent = true })
+
 -- NOTE: ## FILE OPERATIONS
+
+map("n", "<leader>f", "", { desc = "File / Find" })
+map("n", "<leader>fc", function()
+	vim.cmd("edit " .. vim.fn.stdpath("config") .. "/init.lua")
+end, { desc = "Find config" })
+map("n", "<leader>fn", "<cmd>enew<cr>", { desc = "New File" })
+map({ "i", "x", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Save File" })
+map("n", "<C-q>", "<cmd>q<CR>", { desc = "Quit" })
 
 -- NOTE: ## SCROLLING
 
 -- Vertical scroll and center
-vim.keymap.set("n", "<C-d>", "<C-d>zz", opts)
-vim.keymap.set("n", "<C-u>", "<C-u>zz", opts)
+map("n", "<C-d>", "<C-d>zz", opts)
+map("n", "<C-u>", "<C-u>zz", opts)
 
--- Find and center
-vim.keymap.set("n", "n", "nzzzv", opts)
-vim.keymap.set("n", "N", "Nzzzv", opts)
+-- NOTE: WINDOW MANAGEMENT
 
--- NOTE: ## WINDOW MANAGEMENT
+-- Move to window using the <ctrl> hjkl keys
+map("n", "<C-h>", "<C-w>h", { desc = "Go to Left Window", remap = true })
+map("n", "<C-j>", "<C-w>j", { desc = "Go to Lower Window", remap = true })
+map("n", "<C-k>", "<C-w>k", { desc = "Go to Upper Window", remap = true })
+map("n", "<C-l>", "<C-w>l", { desc = "Go to Right Window", remap = true })
 
--- Resize with arrows
-vim.keymap.set("n", "<C-Up>", ":resize -2<CR>", opts)
-vim.keymap.set("n", "<C-Down>", ":resize +2<CR>", opts)
-vim.keymap.set("n", "<C-Left>", ":vertical resize -2<CR>", opts)
-vim.keymap.set("n", "<C-Right>", ":vertical resize +2<CR>", opts)
-
--- Split windows
-vim.keymap.set("n", "<leader>v", "<C-w>v", { desc = "Split window vertically" })
-vim.keymap.set("n", "<leader>h", "<C-w>s", { desc = "Split window horizontally" })
-vim.keymap.set("n", "<leader>se", "<C-w>=", { desc = "Resize splits equally" })
-vim.keymap.set("n", "<leader>xs", ":close<CR>", { desc = "Close split" })
-
--- Navigate between splits
-vim.keymap.set("n", "<C-k>", ":wincmd k<CR>", opts)
-vim.keymap.set("n", "<C-j>", ":wincmd j<CR>", opts)
-vim.keymap.set("n", "<C-h>", ":wincmd h<CR>", opts)
-vim.keymap.set("n", "<C-l>", ":wincmd l<CR>", opts)
+-- Resize window using <ctrl> arrow keys
+map("n", "<C-Up>", "<cmd>resize +2<cr>", { desc = "Increase Window Height" })
+map("n", "<C-Down>", "<cmd>resize -2<cr>", { desc = "Decrease Window Height" })
+map("n", "<C-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease Window Width" })
+map("n", "<C-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase Window Width" })
 
 -- NOTE: ## BUFFER MANAGEMENT
+map("n", "<leader>b", "", { desc = "BUFFERS" })
+map("n", "<leader>bb", ":b#<CR>", { desc = "Switch to previous buffer" })
+map("n", "<leader>bn", ":bnext<CR>", { desc = "Next buffer" })
+map("n", "<leader>bp", ":bprevious<CR>", { desc = "Previous buffer" })
+map("n", "<leader>bd", ":bdelete<CR>", { desc = "Delete current buffer" })
+map("n", "<leader>bl", ":buffers<CR>", { desc = "List buffers" })
+map("n", "<leader>bf", ":bfirst<CR>", { desc = "First buffer" })
+map("n", "<leader>bk", ":blast<CR>", { desc = "Last buffer" })
+map("n", "<leader>bw", ":bufdo w<CR>", { desc = "Write all buffers" })
+map("n", "<leader>ba", ":%bd|e#|bd#<CR>", { desc = "Close all except current" })
+map("n", "<leader>bL", ":silent! exec '1,' . (bufnr('%') - 1) . 'bd'<CR>", { desc = "Delete buffers to the left" })
+map("n", "<leader>bR", ":silent! exec (bufnr('%') + 1) . ',$bd'<CR>", { desc = "Delete buffers to the right" })
+map("n", "<leader>x", ":bdelete<CR>", { desc = "Close current buffer" })
 
--- Buffer navigation
-vim.keymap.set("n", "<Tab>", ":bnext<CR>", opts)
-vim.keymap.set("n", "<S-Tab>", ":bprevious<CR>", opts)
-vim.keymap.set("n", "<leader>x", ":bdelete!<CR>", opts) -- Close buffer
-vim.keymap.set("n", "<leader>b", "<cmd>enew<CR>", opts) -- New buffer
+-- Telescope
+map("n", "<leader>be", ":Telescope buffers<CR>", { desc = "Open Buffer Explorer" })
 
--- Tabs
-vim.keymap.set("n", "<leader>to", ":tabnew<CR>", opts) -- Open new tab
-vim.keymap.set("n", "<leader>tx", ":tabclose<CR>", opts) -- Close current tab
-vim.keymap.set("n", "<leader>tn", ":tabn<CR>", opts) -- Next tab
-vim.keymap.set("n", "<leader>tp", ":tabp<CR>", opts) -- Previous tab
+-- NOTE: ## TABS
+map("n", "<leader><tab>", "", { desc = "TABS" })
+map("n", "<leader><tab>l", "<cmd>tablast<cr>", { desc = "Last Tab" })
+map("n", "<leader><tab>o", "<cmd>tabonly<cr>", { desc = "Close Other Tabs" })
+map("n", "<leader><tab>f", "<cmd>tabfirst<cr>", { desc = "First Tab" })
+map("n", "<leader><tab><tab>", "<cmd>tabnew<cr>", { desc = "New Tab" })
+map("n", "<leader><tab>]", "<cmd>tabnext<cr>", { desc = "Next Tab" })
+map("n", "<leader><tab>d", "<cmd>tabclose<cr>", { desc = "Close Tab" })
+map("n", "<leader><tab>[", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
+
+-- NOTE: ## DIAGNOSTICS
+
+map("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic message" })
+map("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next diagnostic message" })
+map("n", "<leader>d", vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
+map("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
 
 -- NOTE: ## MISCELLANEOUS
 
 -- Toggle line wrapping
-vim.keymap.set("n", "<leader>lw", "<cmd>set wrap!<CR>", opts)
+map("n", "<leader>lw", "<cmd>set wrap!<CR>", opts)
 
 -- Stay in indent mode after shifting
-vim.keymap.set("v", "<", "<gv", opts)
-vim.keymap.set("v", ">", ">gv", opts)
+map("v", "<", "<gv", opts)
+map("v", ">", ">gv", opts)
 
 -- Keep last yanked content when pasting
-vim.keymap.set("v", "p", '"_dP', opts)
+map("v", "p", '"_dP', opts)
 
--- NOTE: ## DIAGNOSTICS
+-- Delete single character without copying to register
+map("n", "x", '"_x', opts)
 
-vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic message" })
-vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next diagnostic message" })
-vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
-vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
+-- Jump to first/last line of the file
+map("n", "gg", "gg0")
+map("n", "G", "G$")
 
 -- Clear highlights on search when pressing <Esc>
-vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
+map("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
 -- Replace word under cursor across the buffer
-vim.keymap.set(
+map(
 	"n",
 	"<leader>ra",
 	[[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
 	{ desc = "Replace all words under cursor" }
 )
 
--- Jump to first/last line of the file
-vim.keymap.set("n", "gg", "gg0")
-vim.keymap.set("n", "G", "G$")
-
 -- Select all text in the file
 vim.api.nvim_set_keymap("n", "<C-a>", "gg0vG$", { noremap = true, silent = true })
 
 -- Exit insert mode without pressing Esc
-vim.keymap.set("i", "jj", "<Esc>")
+map("i", "jj", "<Esc>")
 
 -- Open HTML in Browser (cross-platform) -- -- --
 
-vim.keymap.set({ "n", "v" }, "<leader>oh", function()
+map({ "n", "v" }, "<leader>fh", function()
 	local filename = vim.fn.expand("%:t")
 	if filename:match("%.html$") or filename:match("%.htm$") then
 		local os_name = vim.loop.os_uname().sysname
@@ -119,118 +135,7 @@ vim.keymap.set({ "n", "v" }, "<leader>oh", function()
 	end
 end, { desc = "Open HTML file in system browser" })
 
--- NOTE: ## FILE OPERATIONS
-
--- Save file
-vim.keymap.set("n", "<C-s>", "<cmd>w<CR>", opts)
-
--- Save file without auto-formatting
-vim.keymap.set("n", "<leader>sn", "<cmd>noautocmd w<CR>", opts)
-
--- Quit file
-vim.keymap.set("n", "<C-q>", "<cmd>q<CR>", opts)
-
--- Delete single character without copying to register
-vim.keymap.set("n", "x", '"_x', opts)
-
-_G.FileOps = {}
-
-function FileOps.delete_current_file()
-	local file = vim.fn.expand("%:p")
-	if file == "" then
-		print("No file to delete!")
-		return
-	end
-	vim.fn.delete(file)
-	vim.cmd("bdelete!") -- Close buffer
-	print("Deleted: " .. file)
-end
-
-function FileOps.create_new_file()
-	local file = vim.fn.input("New file: ", "", "file")
-	if file == "" then
-		return
-	end
-	vim.cmd("edit " .. file) -- Open new file
-	print("Created: " .. file)
-end
-
-function FileOps.copy_current_file()
-	local file = vim.fn.expand("%:p")
-	if file == "" then
-		print("No file to copy!")
-		return
-	end
-	local new_file = vim.fn.input("Copy to: ", file, "file")
-	if new_file == "" then
-		return
-	end
-
-	if vim.fn.has("win32") == 1 then
-		vim.fn.system('copy "' .. file .. '" "' .. new_file .. '"')
-	else
-		vim.fn.system({ "cp", file, new_file })
-	end
-
-	print("Copied to: " .. new_file)
-end
-
-function FileOps.rename_current_file()
-	local file = vim.fn.expand("%:p")
-	if file == "" then
-		print("No file to rename!")
-		return
-	end
-	local new_name = vim.fn.input("Rename to: ", file, "file")
-	if new_name == "" then
-		return
-	end
-
-	if vim.fn.has("win32") == 1 then
-		vim.fn.system('ren "' .. file .. '" "' .. new_name .. '"')
-	else
-		vim.fn.system({ "mv", file, new_name })
-	end
-
-	vim.cmd("edit " .. new_name) -- Open new file
-	print("Renamed to: " .. new_name)
-end
-
-function FileOps.move_current_file()
-	local file = vim.fn.expand("%:p")
-	if file == "" then
-		print("No file to move!")
-		return
-	end
-	local new_path = vim.fn.input("Move to: ", file, "file")
-	if new_path == "" then
-		return
-	end
-
-	if vim.fn.has("win32") == 1 then
-		vim.fn.system('move "' .. file .. '" "' .. new_path .. '"')
-	else
-		vim.fn.system({ "mv", file, new_path })
-	end
-
-	vim.cmd("edit " .. new_path) -- Open new file
-	print("Moved to: " .. new_path)
-end
-
--- Keymaps for File Management
-vim.api.nvim_set_keymap("n", "<leader>fd", ":lua FileOps.delete_current_file()<CR>", { noremap = true, silent = true }) -- Delete file
-vim.api.nvim_set_keymap("n", "<leader>fa", ":lua FileOps.create_new_file()<CR>", { noremap = true, silent = true }) -- Add new file
-vim.api.nvim_set_keymap("n", "<leader>fc", ":lua FileOps.copy_current_file()<CR>", { noremap = true, silent = true }) -- Copy file
-vim.api.nvim_set_keymap("n", "<leader>fr", ":lua FileOps.rename_current_file()<CR>", { noremap = true, silent = true }) -- Rename file
-vim.api.nvim_set_keymap("n", "<leader>fm", ":lua FileOps.move_current_file()<CR>", { noremap = true, silent = true }) -- Move file
-
 -- NOTE: -- -- CUSTOM KEYMAPS FOR PLUGINS -- -- --
 
 -- mini.nvim
-vim.keymap.set("n", "<leader>e", "<Cmd>lua MiniFiles.open()<CR>", { desc = "Open MiniFiles" })
-
--- snacks.nvim
-vim.keymap.set("n", "<leader>sp", "<Cmd>lua Snacks.picker()<CR>", { desc = "Open MiniPicker" })
-
--- mason.nvim
-vim.keymap.set("n", "<leader>Cm", "<Cmd>checkhealth mason<CR>", { desc = "Checkhealth Mason" })
+map("n", "<leader>e", "<Cmd>lua MiniFiles.open()<CR>", { desc = "Explorer MiniFiles (root dir)" })
