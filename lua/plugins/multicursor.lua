@@ -6,101 +6,106 @@ return {
 
 		mc.setup()
 
-		local set = vim.keymap.set
+    vim.keymap.set("n", "<leader>m", "", {desc = "Multicursor"})
 
 		-- Add or skip cursor above/below the main cursor.
-		set({ "n", "v" }, "<up>", function()
+		vim.keymap.set({ "n", "v" }, "<up>", function()
 			mc.lineAddCursor(-1)
 		end)
-		set({ "n", "v" }, "<down>", function()
+		vim.keymap.set({ "n", "v" }, "<down>", function()
 			mc.lineAddCursor(1)
 		end)
-		set({ "n", "v" }, "<leader><up>", function()
+		vim.keymap.set({ "n", "v" }, "<leader>m<up>", function()
 			mc.lineSkipCursor(-1)
-		end)
-		set({ "n", "v" }, "<leader><down>", function()
+		end, { desc = "Line Skip Cursor (Up)" })
+		vim.keymap.set({ "n", "v" }, "<leader>m<down>", function()
 			mc.lineSkipCursor(1)
-		end)
+		end, { desc = "Line Skip Cursor (Down)" })
 
 		-- Add or skip adding a new cursor by matching word/selection
-		set({ "n", "v" }, "<leader>n", function()
+		vim.keymap.set({ "n", "v" }, "<leader>mn", function()
 			mc.matchAddCursor(1)
-		end)
-		set({ "n", "v" }, "<leader>s", function()
+		end, { desc = "Add next matching word/selection" })
+		vim.keymap.set({ "n", "v" }, "<leader>ms", function()
 			mc.matchSkipCursor(1)
-		end)
-		set({ "n", "v" }, "<leader>N", function()
+		end, { desc = "Skip next matching word/selection" })
+		vim.keymap.set({ "n", "v" }, "<leader>mN", function()
 			mc.matchAddCursor(-1)
-		end)
-		set({ "n", "v" }, "<leader>S", function()
+		end, { desc = "Add prev matching word/selection" })
+		vim.keymap.set({ "n", "v" }, "<leader>mS", function()
 			mc.matchSkipCursor(-1)
-		end)
+		end, { desc = "Skip prev matching word/selection" })
 
 		-- Add all matches in the document
-		set({ "n", "v" }, "<leader>A", mc.matchAllAddCursors)
+		vim.keymap.set({ "n", "v" }, "<leader>mA", mc.matchAllAddCursors, { desc = "Add all matches" })
 
 		-- You can also add cursors with any motion you prefer:
-		-- set("n", "<right>", function()
+		-- vim.keymap.set("n", "<right>", function()
 		--     mc.addCursor("w")
 		-- end)
-		-- set("n", "<leader><right>", function()
+		-- vim.keymap.set("n", "<leader><right>", function()
 		--     mc.skipCursor("w")
 		-- end)
 
 		-- Rotate the main cursor.
-		set({ "n", "v" }, "<left>", mc.nextCursor)
-		set({ "n", "v" }, "<right>", mc.prevCursor)
+		vim.keymap.set({ "n", "v" }, "<left>", mc.nextCursor)
+		vim.keymap.set({ "n", "v" }, "<right>", mc.prevCursor)
 
 		-- Delete the main cursor.
-		set({ "n", "v" }, "X", mc.deleteCursor)
+		vim.keymap.set({ "n", "v" }, "mX", mc.deleteCursor, { desc = "Delete the main cursor" })
 
 		-- Add and remove cursors with control + left click.
-		set("n", "<c-leftmouse>", mc.handleMouse)
+		vim.keymap.set("n", "<c-leftmouse>", mc.handleMouse)
 
 		-- Easy way to add and remove cursors using the main cursor.
-		set({ "n", "v" }, "A", mc.toggleCursor)
+		vim.keymap.set({ "n", "v" }, "mA", mc.toggleCursor, { desc = "Add/Remove cursors using the main cursor" })
 
 		-- Clone every cursor and disable the originals.
-		set({ "n", "v" }, "<leader><c-q>", mc.duplicateCursors)
+		vim.keymap.set(
+			{ "n", "v" },
+			"<leader><c-q>",
+			mc.duplicateCursors,
+			{ desc = "Duplicate every cursor and disable the originals" }
+		)
 
-		set("n", "<esc>", function()
+		vim.keymap.set("n", "<esc>", function()
 			if not mc.cursorsEnabled() then
 				mc.enableCursors()
 			elseif mc.hasCursors() then
 				mc.clearCursors()
-      elseif vim.cmd("nohlsearch") then
+			elseif vim.cmd("nohlsearch") then
 			else
 				-- Default <esc> handler.
 			end
 		end)
 
 		-- bring back cursors if you accidentally clear them
-		set("n", "<leader>gv", mc.restoreCursors)
+		vim.keymap.set("n", "<leader>mv", mc.restoreCursors, { desc = "Restore prev deleted cursor(s)" })
 
 		-- Align cursor columns.
-		set("n", "<leader>a", mc.alignCursors)
+		vim.keymap.set("n", "<leader>ma", mc.alignCursors, { desc = "Alin cursor (column)" })
 
 		-- Split visual selections by regex.
-		set("v", "S", mc.splitCursors)
+		vim.keymap.set("v", "S", mc.splitCursors)
 
 		-- Append/insert for each line of visual selections.
-		set("v", "I", mc.insertVisual)
-		set("v", "A", mc.appendVisual)
+		vim.keymap.set("v", "I", mc.insertVisual)
+		vim.keymap.set("v", "A", mc.appendVisual)
 
 		-- match new cursors within visual selections by regex.
-		set("v", "M", mc.matchCursors)
+		vim.keymap.set("v", "M", mc.matchCursors)
 
 		-- Rotate visual selection contents.
-		set("v", "<leader>t", function()
+		vim.keymap.set("v", "<leader>mt", function()
 			mc.transposeCursors(1)
-		end)
-		set("v", "<leader>T", function()
+		end, { desc = "Transpose cursor (1)" })
+		vim.keymap.set("v", "<leader>mT", function()
 			mc.transposeCursors(-1)
-		end)
+		end, { desc = "Transpose cursor (-1)" })
 
 		-- Jumplist support
-		set({ "v", "n" }, "<c-i>", mc.jumpForward)
-		set({ "v", "n" }, "<c-o>", mc.jumpBackward)
+		vim.keymap.set({ "v", "n" }, "<c-i>", mc.jumpForward)
+		vim.keymap.set({ "v", "n" }, "<c-o>", mc.jumpBackward)
 
 		-- Customize how cursors look.
 		local hl = vim.api.nvim_set_hl
