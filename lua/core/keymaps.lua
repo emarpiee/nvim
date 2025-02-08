@@ -12,18 +12,6 @@ local opts = { noremap = true, silent = true }
 
 -- NOTE: ## FILE OPERATIONS
 
--- Save file
-vim.keymap.set("n", "<C-s>", "<cmd>w<CR>", opts)
-
--- Save file without auto-formatting
-vim.keymap.set("n", "<leader>sn", "<cmd>noautocmd w<CR>", opts)
-
--- Quit file
-vim.keymap.set("n", "<C-q>", "<cmd>q<CR>", opts)
-
--- Delete single character without copying to register
-vim.keymap.set("n", "x", '"_x', opts)
-
 -- NOTE: ## SCROLLING
 
 -- Vertical scroll and center
@@ -131,13 +119,118 @@ vim.keymap.set({ "n", "v" }, "<leader>oh", function()
 	end
 end, { desc = "Open HTML file in system browser" })
 
+-- NOTE: ## FILE OPERATIONS
+
+-- Save file
+vim.keymap.set("n", "<C-s>", "<cmd>w<CR>", opts)
+
+-- Save file without auto-formatting
+vim.keymap.set("n", "<leader>sn", "<cmd>noautocmd w<CR>", opts)
+
+-- Quit file
+vim.keymap.set("n", "<C-q>", "<cmd>q<CR>", opts)
+
+-- Delete single character without copying to register
+vim.keymap.set("n", "x", '"_x', opts)
+
+_G.FileOps = {}
+
+function FileOps.delete_current_file()
+	local file = vim.fn.expand("%:p")
+	if file == "" then
+		print("No file to delete!")
+		return
+	end
+	vim.fn.delete(file)
+	vim.cmd("bdelete!") -- Close buffer
+	print("Deleted: " .. file)
+end
+
+function FileOps.create_new_file()
+	local file = vim.fn.input("New file: ", "", "file")
+	if file == "" then
+		return
+	end
+	vim.cmd("edit " .. file) -- Open new file
+	print("Created: " .. file)
+end
+
+function FileOps.copy_current_file()
+	local file = vim.fn.expand("%:p")
+	if file == "" then
+		print("No file to copy!")
+		return
+	end
+	local new_file = vim.fn.input("Copy to: ", file, "file")
+	if new_file == "" then
+		return
+	end
+
+	if vim.fn.has("win32") == 1 then
+		vim.fn.system('copy "' .. file .. '" "' .. new_file .. '"')
+	else
+		vim.fn.system({ "cp", file, new_file })
+	end
+
+	print("Copied to: " .. new_file)
+end
+
+function FileOps.rename_current_file()
+	local file = vim.fn.expand("%:p")
+	if file == "" then
+		print("No file to rename!")
+		return
+	end
+	local new_name = vim.fn.input("Rename to: ", file, "file")
+	if new_name == "" then
+		return
+	end
+
+	if vim.fn.has("win32") == 1 then
+		vim.fn.system('ren "' .. file .. '" "' .. new_name .. '"')
+	else
+		vim.fn.system({ "mv", file, new_name })
+	end
+
+	vim.cmd("edit " .. new_name) -- Open new file
+	print("Renamed to: " .. new_name)
+end
+
+function FileOps.move_current_file()
+	local file = vim.fn.expand("%:p")
+	if file == "" then
+		print("No file to move!")
+		return
+	end
+	local new_path = vim.fn.input("Move to: ", file, "file")
+	if new_path == "" then
+		return
+	end
+
+	if vim.fn.has("win32") == 1 then
+		vim.fn.system('move "' .. file .. '" "' .. new_path .. '"')
+	else
+		vim.fn.system({ "mv", file, new_path })
+	end
+
+	vim.cmd("edit " .. new_path) -- Open new file
+	print("Moved to: " .. new_path)
+end
+
+-- Keymaps for File Management
+vim.api.nvim_set_keymap("n", "<leader>fd", ":lua FileOps.delete_current_file()<CR>", { noremap = true, silent = true }) -- Delete file
+vim.api.nvim_set_keymap("n", "<leader>fa", ":lua FileOps.create_new_file()<CR>", { noremap = true, silent = true }) -- Add new file
+vim.api.nvim_set_keymap("n", "<leader>fc", ":lua FileOps.copy_current_file()<CR>", { noremap = true, silent = true }) -- Copy file
+vim.api.nvim_set_keymap("n", "<leader>fr", ":lua FileOps.rename_current_file()<CR>", { noremap = true, silent = true }) -- Rename file
+vim.api.nvim_set_keymap("n", "<leader>fm", ":lua FileOps.move_current_file()<CR>", { noremap = true, silent = true }) -- Move file
+
 -- NOTE: -- -- CUSTOM KEYMAPS FOR PLUGINS -- -- --
 
 -- mini.nvim
 vim.keymap.set("n", "<leader>e", "<Cmd>lua MiniFiles.open()<CR>", { desc = "Open MiniFiles" })
 
 -- snacks.nvim
-vim.keymap.set("n", "<leader>sp", "<Cmd>lua Snacks.picker()<CR>", { desc = "Open MiniuPicker" })
+vim.keymap.set("n", "<leader>sp", "<Cmd>lua Snacks.picker()<CR>", { desc = "Open MiniPicker" })
 
 -- mason.nvim
 vim.keymap.set("n", "<leader>Cm", "<Cmd>checkhealth mason<CR>", { desc = "Checkhealth Mason" })
