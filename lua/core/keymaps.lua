@@ -91,6 +91,9 @@ map("v", "p", '"_dP', opts)
 -- Delete single character without copying to register
 map("n", "x", '"_x', opts)
 
+-- Don't yank on 'change'
+map("n", "c", '"_c', opts)
+
 -- Jump to first/last line of the file
 map("n", "gg", "gg0")
 map("n", "G", "G$")

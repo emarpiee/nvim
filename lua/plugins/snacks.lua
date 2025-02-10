@@ -152,7 +152,7 @@ return {
 			desc = "Notification History",
 		},
 		{
-			"<leader>cR",
+			"<leader>fC",
 			function()
 				Snacks.rename.rename_file()
 			end,

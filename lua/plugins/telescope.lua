@@ -21,6 +21,12 @@ return {
 		{ "nvim-telescope/telescope-ui-select.nvim" },
 
 		{ "nvim-tree/nvim-web-devicons", enabled = vim.g.have_nerd_font },
+		{
+			"zane-/cder.nvim",
+			config = function()
+				require("telescope").load_extension("cder")
+			end,
+		},
 	},
 	config = function()
 		require("telescope").setup({
@@ -65,12 +71,19 @@ return {
 				["ui-select"] = {
 					require("telescope.themes").get_dropdown(),
 				},
+				cder = {
+					dir_command = {'fd', '--type=d', '--follow', '.', vim.uv.os_homedir()},
+					command_executer = { "cmd", "/c", "dir" },
+					previewer_command = "",
+					pager_command = "more",
+				},
 			},
 		})
 
 		-- Enable Telescope extensions if they are installed
 		pcall(require("telescope").load_extension, "fzf")
 		pcall(require("telescope").load_extension, "ui-select")
+		pcall(require("telescope").load_extension, "cder")
 
 		-- See `:help telescope.builtin`
 		local builtin = require("telescope.builtin")
