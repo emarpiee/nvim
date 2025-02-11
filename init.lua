@@ -35,9 +35,6 @@ require("lazy").setup({
 	-- A collection of small QoL pluins for Neovim
 	require("plugins.snacks"),
 
-	-- Multiple curosrs
-	-- require("plugins.vim-visual-multi"),
-
 	-- nvim-cmp, this is required for Mason LSP
 	require("plugins.autocompletion"),
 
@@ -51,9 +48,6 @@ require("lazy").setup({
 	require("plugins.ts-autotag"),
 
 	require("plugins.multicursor"),
-
-	-- Auto close brackets, quotes, etc
-	-- require("plugins.autopairs"),
 
 	-- NOTE: ## NAVIGATION
 	--
