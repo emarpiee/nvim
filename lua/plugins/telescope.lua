@@ -23,6 +23,7 @@ return {
 		{ "nvim-tree/nvim-web-devicons", enabled = vim.g.have_nerd_font },
 		{
 			"zane-/cder.nvim",
+			-- this plugin gives you the ability to change your cwd using telescope
 			config = function()
 				require("telescope").load_extension("cder")
 			end,
@@ -72,7 +73,7 @@ return {
 					require("telescope.themes").get_dropdown(),
 				},
 				cder = {
-					dir_command = {'fd', '--type=d', '--follow', '.', vim.uv.os_homedir()},
+					dir_command = { "fd", "--type=d", "--hidden", "--follow", ".", vim.uv.os_homedir() },
 					command_executer = { "cmd", "/c", "dir" },
 					previewer_command = "",
 					pager_command = "more",
@@ -80,7 +81,7 @@ return {
 			},
 		})
 
-		-- Enable Telescope extensions if they are installed
+		-- Enable Telescope extensions if they are installe
 		pcall(require("telescope").load_extension, "fzf")
 		pcall(require("telescope").load_extension, "ui-select")
 		pcall(require("telescope").load_extension, "cder")
