@@ -9,6 +9,8 @@ local opts = { noremap = true, silent = true }
 -- Disable default mappings
 vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 vim.keymap.set({ "n", "v" }, "s", "<Nop>", { silent = true })
+vim.keymap.set({ "n", "v" }, "<C-n>", "<Nop>", { silent = true })
+vim.keymap.set({ "n", "v" }, "<C-p>", "<Nop>", { silent = true })
 
 -- NOTE: ## FILE OPERATIONS
 
@@ -77,6 +79,12 @@ vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { desc = "Open float
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
 
 -- NOTE: ## MISCELLANEOUS
+
+-- Insert test to first line.
+vim.keymap.set({"n", "v"}, "<C-p>", "ggO", opts)
+
+-- Insert test to last line.
+vim.keymap.set({"n", "v"}, "<C-n>", "Go", opts)
 
 -- Toggle line wrapping
 vim.keymap.set("n", "<leader>lw", "<cmd>set wrap!<CR>", opts)
