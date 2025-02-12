@@ -23,8 +23,8 @@ vim.opt.conceallevel = 1
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
 
--- Enable mouse mode, can be useful for resizing splits for example!
-vim.opt.mouse = 'a'
+-- Enable = 'a', Disable = ''
+vim.opt.mouse = ''
 
 vim.opt.showmode = false
 
