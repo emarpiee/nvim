@@ -54,8 +54,18 @@ vim.keymap.set("n", "<leader>bf", ":bfirst<CR>", { desc = "First buffer" })
 vim.keymap.set("n", "<leader>bk", ":blast<CR>", { desc = "Last buffer" })
 vim.keymap.set("n", "<leader>bw", ":bufdo w<CR>", { desc = "Write all buffers" })
 vim.keymap.set("n", "<leader>ba", ":%bd|e#|bd#<CR>", { desc = "Close all except current" })
-vim.keymap.set("n", "<leader>bL", ":silent! exec '1,' . (bufnr('%') - 1) . 'bd'<CR>", { desc = "Delete buffers to the left" })
-vim.keymap.set("n", "<leader>bR", ":silent! exec (bufnr('%') + 1) . ',$bd'<CR>", { desc = "Delete buffers to the right" })
+vim.keymap.set(
+	"n",
+	"<leader>bL",
+	":silent! exec '1,' . (bufnr('%') - 1) . 'bd'<CR>",
+	{ desc = "Delete buffers to the left" }
+)
+vim.keymap.set(
+	"n",
+	"<leader>bR",
+	":silent! exec (bufnr('%') + 1) . ',$bd'<CR>",
+	{ desc = "Delete buffers to the right" }
+)
 vim.keymap.set("n", "<leader>x", ":bdelete<CR>", { desc = "Close current buffer" })
 
 -- Telescope
@@ -81,13 +91,13 @@ vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagn
 -- NOTE: ## MISCELLANEOUS
 
 -- Insert test to first line.
-vim.keymap.set({"n", "v"}, "<C-p>", "ggO", opts)
+vim.keymap.set({ "n", "v" }, "<C-p>", "ggO", opts)
 
 -- Insert test to last line.
-vim.keymap.set({"n", "v"}, "<C-n>", "Go", opts)
+vim.keymap.set({ "n", "v" }, "<C-n>", "Go", opts)
 
 -- Toggle line wrapping
-vim.keymap.set("n", "<leader>lw", "<cmd>set wrap!<CR>", opts)
+vim.keymap.set("n", "<leader>lw", ":set wrap!<CR>", { desc = "Toggle Line Wrap" })
 
 -- Stay in indent mode after shifting
 vim.keymap.set("v", "<", "<gv", opts)
@@ -154,41 +164,46 @@ vim.keymap.set("n", "<leader>e", ":lua MiniFiles.open()<CR>", { desc = "Explorer
 -- cder (telescope)
 vim.keymap.set("n", "<leader>fd", ":Telescope cder <CR>", { desc = "Change working directory" })
 
+-- ccc.nvim
+vim.keymap.set("n", "<C-p>", ":CccPick <CR>", opts)
+
 -- keypmap to delete all the scratch buffers created by snacks.nvim (scratch)
 vim.keymap.set("n", "<leader>bD", function()
-    -- Define scratch directory paths
-    local scratch_path = vim.fn.expand("~/.local/share/nvim/scratch") -- Unix default
-    if vim.fn.has("win32") == 1 then
-        scratch_path = vim.fn.expand("~/AppData/Local/nvim-data/scratch") -- Windows path
-    end
+	-- Define scratch directory paths
+	local scratch_path = vim.fn.expand("~/.local/share/nvim/scratch") -- Unix default
+	if vim.fn.has("win32") == 1 then
+		scratch_path = vim.fn.expand("~/AppData/Local/nvim-data/scratch") -- Windows path
+	end
 
-    -- Check if the scratch directory exists
-    if vim.fn.isdirectory(scratch_path) == 0 then
-        vim.notify("Scratch folder does not exist: " .. scratch_path, vim.log.levels.WARN)
-        return
-    end
+	-- Check if the scratch directory exists
+	if vim.fn.isdirectory(scratch_path) == 0 then
+		vim.notify("Scratch folder does not exist: " .. scratch_path, vim.log.levels.WARN)
+		return
+	end
 
-    -- Build the delete command
-    local cmd
-    if vim.fn.has("win32") == 1 then
-        -- PowerShell 7 (uses pwsh for Windows)
-        cmd = string.format('pwsh -NoProfile -ExecutionPolicy Bypass -Command "Remove-Item -Path \'%s\\*\' -Recurse -Force"', scratch_path)
-    else
-        -- Unix/Linux/macOS
-        cmd = string.format('rm -rf "%s"/*', scratch_path)
-    end
+	-- Build the delete command
+	local cmd
+	if vim.fn.has("win32") == 1 then
+		-- PowerShell 7 (uses pwsh for Windows)
+		cmd = string.format(
+			"pwsh -NoProfile -ExecutionPolicy Bypass -Command \"Remove-Item -Path '%s\\*' -Recurse -Force\"",
+			scratch_path
+		)
+	else
+		-- Unix/Linux/macOS
+		cmd = string.format('rm -rf "%s"/*', scratch_path)
+	end
 
-    -- Execute command asynchronously
-    vim.fn.jobstart(cmd, {
-        on_exit = function(_, code)
-            if code == 0 then
-                vim.notify("Cleared scratch buffers in: " .. scratch_path, vim.log.levels.INFO)
-            else
-                vim.notify("Failed to clear scratch buffers", vim.log.levels.ERROR)
-            end
-        end,
-        stdout_buffered = true,
-        stderr_buffered = true
-    })
+	-- Execute command asynchronously
+	vim.fn.jobstart(cmd, {
+		on_exit = function(_, code)
+			if code == 0 then
+				vim.notify("Cleared scratch buffers in: " .. scratch_path, vim.log.levels.INFO)
+			else
+				vim.notify("Failed to clear scratch buffers", vim.log.levels.ERROR)
+			end
+		end,
+		stdout_buffered = true,
+		stderr_buffered = true,
+	})
 end, { noremap = true, silent = true, desc = "Delete all scratch buffers (Snacks.scratch)" })
-
