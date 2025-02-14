@@ -70,15 +70,17 @@ require("lazy").setup({
 	-- Highlight, list and search todo comments in your projects
 	require("plugins.todo"),
 
-	-- Color highlighter
-	require("plugins.colorizer"),
-
 	-- plugin to help easily manage multiple terminal windows
 	require("plugins.toggleterm"),
-	-- -- -- Open HTML in Browser (cross-platform) -- -- --
 
-	-- NOTE: ## GAMES
+  -- Colorizer
+	require("plugins.ccc"),
+
+	-- NOTE: ## OTHER
 	--
 	-- smol game to make you better with vim
 	require("plugins.vimbegood"),
+
+	-- Typing practice
+	require("plugins.typr"),
 })
