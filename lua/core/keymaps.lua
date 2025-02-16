@@ -18,9 +18,11 @@ vim.keymap.set("n", "<leader>f", "", { desc = "File / Find" })
 vim.keymap.set("n", "<leader>fc", function()
 	vim.cmd("edit " .. vim.fn.stdpath("config") .. "/init.lua")
 end, { desc = "Find config" })
-vim.keymap.set("n", "<leader>fn", "<cmd>enew<cr>", { desc = "New File" })
+vim.keymap.set("n", "<leader>fn", ":enew<cr>", { desc = "New File" })
 vim.keymap.set({ "i", "x", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Save File" })
-vim.keymap.set("n", "<C-q>", "<cmd>q<CR>", { desc = "Quit" })
+vim.keymap.set("n", "<C-q>", ":q<CR>", { desc = "Quit" })
+vim.keymap.set("n", "<Space>*", ":q!<CR>", { desc = "Quit (Discard all the changes)" })
+
 
 -- NOTE: ## SCROLLING
 
@@ -37,10 +39,10 @@ vim.keymap.set("n", "<C-k>", "<C-w>k", { desc = "Go to Upper Window", remap = tr
 vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Go to Right Window", remap = true })
 
 -- Resize window using <ctrl> arrow keys
-vim.keymap.set("n", "<C-Up>", "<cmd>resize +2<cr>", { desc = "Increase Window Height" })
-vim.keymap.set("n", "<C-Down>", "<cmd>resize -2<cr>", { desc = "Decrease Window Height" })
-vim.keymap.set("n", "<C-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease Window Width" })
-vim.keymap.set("n", "<C-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase Window Width" })
+vim.keymap.set("n", "<C-Up>", ":resize +2<cr>", { desc = "Increase Window Height" })
+vim.keymap.set("n", "<C-Down>", ":resize -2<cr>", { desc = "Decrease Window Height" })
+vim.keymap.set("n", "<C-Left>", ":vertical resize -2<cr>", { desc = "Decrease Window Width" })
+vim.keymap.set("n", "<C-Right>", ":vertical resize +2<cr>", { desc = "Increase Window Width" })
 
 -- NOTE: ## BUFFER MANAGEMENT
 vim.keymap.set("n", "<leader>b", "", { desc = "BUFFERS" })
@@ -73,13 +75,13 @@ vim.keymap.set("n", "<leader>be", ":Telescope buffers<CR>", { desc = "Open Buffe
 
 -- NOTE: ## TABS
 vim.keymap.set("n", "<leader><tab>", "", { desc = "TABS" })
-vim.keymap.set("n", "<leader><tab>l", "<cmd>tablast<cr>", { desc = "Last Tab" })
-vim.keymap.set("n", "<leader><tab>o", "<cmd>tabonly<cr>", { desc = "Close Other Tabs" })
-vim.keymap.set("n", "<leader><tab>f", "<cmd>tabfirst<cr>", { desc = "First Tab" })
-vim.keymap.set("n", "<leader><tab><tab>", "<cmd>tabnew<cr>", { desc = "New Tab" })
-vim.keymap.set("n", "<leader><tab>]", "<cmd>tabnext<cr>", { desc = "Next Tab" })
-vim.keymap.set("n", "<leader><tab>d", "<cmd>tabclose<cr>", { desc = "Close Tab" })
-vim.keymap.set("n", "<leader><tab>[", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
+vim.keymap.set("n", "<leader><tab>l", ":tablast<cr>", { desc = "Last Tab" })
+vim.keymap.set("n", "<leader><tab>o", ":tabonly<cr>", { desc = "Close Other Tabs" })
+vim.keymap.set("n", "<leader><tab>f", ":tabfirst<cr>", { desc = "First Tab" })
+vim.keymap.set("n", "<leader><tab><tab>", ":tabnew<cr>", { desc = "New Tab" })
+vim.keymap.set("n", "<leader><tab>]", ":tabnext<cr>", { desc = "Next Tab" })
+vim.keymap.set("n", "<leader><tab>d", ":tabclose<cr>", { desc = "Close Tab" })
+vim.keymap.set("n", "<leader><tab>[", ":tabprevious<cr>", { desc = "Previous Tab" })
 
 -- NOTE: ## DIAGNOSTICS
 
@@ -117,7 +119,7 @@ vim.keymap.set("n", "gg", "gg0")
 vim.keymap.set("n", "G", "G$")
 
 -- Clear highlights on search when pressing <Esc>
-vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
+vim.keymap.set("n", "<Esc>", ":nohlsearch<CR>")
 
 -- Replace word under cursor across the buffer
 vim.keymap.set(
